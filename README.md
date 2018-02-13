@@ -14,8 +14,8 @@ This repository is used as a collection of algorithms and data struction exercis
 - 快速排序
 - 二叉树
 - 二叉查找树
-  1.BST创建
-  2.3种遍历
-  3.按层遍历
+  1. BST创建
+  2. 3种遍历
+  3. 按层遍历
 - 二分查找
 - （更新待续）
