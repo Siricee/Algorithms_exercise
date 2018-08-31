@@ -5,7 +5,7 @@ This repository is used as a collection of algorithms and data struction exercis
 
 欢迎各位参考与纠错！讨论请加issue~
 
-目前已经提交的相关基础算法：
+目前已经提交的相关基础数据结构与算法：
 
 - 栈
 - 队列
@@ -18,7 +18,6 @@ This repository is used as a collection of algorithms and data struction exercis
 2. 3种遍历
 3. 按层遍历
 - 二分查找
-- （更新待续）
 
 ---
 - 2018.3.20更新 图论
@@ -26,4 +25,7 @@ This repository is used as a collection of algorithms and data struction exercis
 2. 邻接表
 3. 邻接矩阵、邻接表的深度优先遍历 广度优先遍历
 
-***注：数据结构没有设计为统一的图，根据算法进行对象新建，后续有时间再优化***
+（注：数据结构没有设计为统一的图，根据算法进行对象新建，后续有时间再优化）
+
+---
+- 2018.8.31更新 快速幂的算法实现(Advanced_QuickPow)，在注释中有简单的说明。
