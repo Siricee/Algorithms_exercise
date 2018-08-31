@@ -1,18 +1,18 @@
 package graph;
 
-public class MatrixGraph_DPS_DFS_Test {
+public class MatrixGraph_BFS_DFS_Test {
 
 	public static void main(String[] args) {
 		int[] vertexes = {0,1,2,3,4,5,6,7};
-		MatrixGraphWithDPS graphDps = new MatrixGraphWithDPS(vertexes);
 		MatrixGraphWithDFS graphDfs = new MatrixGraphWithDFS(vertexes);
+		MatrixGraphWithBFS graphBfs = new MatrixGraphWithBFS(vertexes);
 		
-		graphDps.addEdge(0, 1);
-		graphDps.addEdge(0, 2);
-		graphDps.addEdge(1, 3);
-		graphDps.addEdge(1, 5);
-		graphDps.addEdge(2, 6);
-		graphDps.addEdge(2, 5);
+		graphBfs.addEdge(0, 1);
+		graphBfs.addEdge(0, 2);
+		graphBfs.addEdge(1, 3);
+		graphBfs.addEdge(1, 5);
+		graphBfs.addEdge(2, 6);
+		graphBfs.addEdge(2, 5);
 		
 		
 		graphDfs.addEdge(0, 1);
@@ -24,14 +24,14 @@ public class MatrixGraph_DPS_DFS_Test {
 		
 		
 		//output results
-		graphDps.printMatrix();
-		graphDps.depthFirstTravel();
+		graphBfs.printMatrix();
+		graphBfs.breadthFirstTravel();
 		
 		System.out.println();
 		System.out.println("*************");
 		
 		graphDfs.printMatrix();
-		graphDfs.breadthFirstTravel();
+		graphDfs.depthFirstTravel();
 	}
 
 }

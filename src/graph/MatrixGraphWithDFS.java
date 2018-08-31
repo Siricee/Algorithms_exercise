@@ -1,68 +1,73 @@
 package graph;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 
 public class MatrixGraphWithDFS extends MatrixGraph {
 
 	public MatrixGraphWithDFS(int[] vertexes) {
 		super(vertexes);
 	}
-	
-	//dfs
-	public void breadthFirstTravel() {
-		System.out.println("邻接矩阵的广度优先遍历");
-		Queue<Integer> queue = new LinkedList<>();
-		
+
+	// 邻接矩阵的深度优先遍历
+	public void depthFirstTravel() {
+		System.out.println("邻接矩阵的深度优先遍历");
+
+		// init stack初始化栈
+
 		int[] currentMapping = this.getMapping();
 		int num = currentMapping.length;
-		//获取当前对象的mapping长度
-		
-		int[] visited = new int [num]; 
-		int unvisited = getUnVisited(visited);
-		while(unvisited >=0) {
-			//起始顶点入队
-			queue.add(unvisited);
-			while(!queue.isEmpty()) {
-				//出队顶点并访问
-				int index = (Integer)queue.poll();
-				if(visited[index] == 1) {
-					continue;
-				}
-				System.out.println(currentMapping[index]+",");
-				//标记被访问
-				visited[index] = 1;
-				//遍历所有未被访问的邻接顶点，放入队列中。
+
+		Stack<Integer> stack = new Stack<>();
+
+		// 初始化各顶点的访问状态
+		int[] visited = new int[num];
+		// 从未访问过的顶点中任选一个顶点作为起始顶点
+		int unvisited = getUnVisited(visited); //unvisited变量是未访问的mapping中元素下标。
+		while (unvisited >= 0) {
+			// 访问起始顶点，并入栈
+			visited[unvisited] = 1;
+			stack.push(unvisited);
+			System.out.print(currentMapping[unvisited] + ",");
+			while (!stack.isEmpty()) {
+				// 获取栈顶元素，不出栈
+				int index = stack.peek();
+				// 遍历找到未访问的mapping数组元素下标
+				boolean found = false;
 				for (int i = 0; i < currentMapping.length; i++) {
-					//不能是自己、未被访问、可到达
-					if(index != i && visited[i] == 0 && getMatrix()[index][i]>0) {
-						queue.add(i);
+					// 不能是自己 且  未被访问、可到达
+					if (index != i && visited[i] == 0 && getMatrix()[index][i] > 0) {
+						// 如果找到则访问并入栈
+						visited[i] = i;
+						stack.push(new Integer(i));
+						System.out.println(currentMapping[i] + ",");
+						found = true;
+						break;
 					}
-					
+				}
+				// 如果未找到，出栈元素
+				if (!found) {
+					stack.pop();
 				}
 			}
-			unvisited = getUnVisited(visited);
+
+			unvisited = getUnVisited(visited);//一次深搜之后开始下一次从未被访问的节点开始
 		}
-		
-		System.out.println();
 	}
-	
+
 	/**
-	 * 从访问标记数组中获取第一个发现的未被访问的顶点下标。
+	 * 从访问标记数组中获取第一个发现的未被访问的顶点下标
+	 * 
 	 * @param visited
-	 * @return 都被访问了就返回-1
+	 * @return 如果都被访问了返回-1
 	 */
-	private int getUnVisited(int[] visited) {
-		int index = -1 ;
+	public int getUnVisited(int[] visited) {
+		int index = -1;
 		for (int i = 0; i < visited.length; i++) {
-			if(visited[i] == 0) {
+			if (visited[i] == 0) {
 				index = i;
 				break;
 			}
 		}
 		return index;
-		
 	}
-	
-
 }

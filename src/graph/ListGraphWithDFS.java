@@ -1,58 +1,65 @@
 package graph;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 
-public class ListGraphWithDFS extends ListGraph{
+public class ListGraphWithDFS extends ListGraph {
 
 	public ListGraphWithDFS(int[] vertexes) {
 		super(vertexes);
 	}
-	
-	public void breadthFirstTravel() {
-		System.out.println("邻接表的广度优先遍历");
-		Queue<Integer> queue = new LinkedList<>();
-		//初始化各个顶点的访问状态。
+
+	/**
+	 * 邻接表深度优先遍历
+	 */
+	public void depthFirstTravel() {
+		System.out.println("邻接表深度优先遍历");
+		// init stack
+		Stack<Integer> stack = new Stack<>();
 		ListGraphNode[] currentNodes = this.getNodes();
-		
-		int[] visited = new int [currentNodes.length];
+		int num =  currentNodes.length;
+		// 初始化各个顶点的访问状态
+		int[] visited = new int[num];
 		int unvisited = getUnVisited(visited);
-		while(unvisited >= 0) {
-			//起始顶点入队
-			queue.add(unvisited);
-			while(!queue.isEmpty()) {
-				//出队顶点并访问
-				int index = (Integer)queue.poll();
-				System.out.println(currentNodes[index].value+",");
-				
-				//标记被访问
-				visited[index] = -1;
-				ListGraphNode node = currentNodes[index].next;
-				while(node!= null) {
-					if(visited[node.index] == 0) {
-						queue.add(node.index);
+		while (unvisited >= 0) {
+			visited[unvisited] = 1;
+			stack.push(unvisited);
+			System.out.print(currentNodes[unvisited].value + ",");
+			while (!stack.isEmpty()) {
+				// 获取栈顶元素，不出栈
+				int index = stack.peek();
+				// 找到未被访问的邻接顶点
+				boolean found = false;
+				ListGraphNode node = currentNodes[index];
+				while (node != null) {
+					ListGraphNode next = node.next;
+					if (node.next != null && visited[next.index] == 0) {
+						// 如果找到，则访问并入栈
+						visited[next.index] = 1;
+						stack.push(next.index);
+						System.out.println(next.value + ",");
+						found = true;
+						break;
 					}
 					node = node.next;
 				}
+				if (!found) {
+					stack.pop();
+				}
+
 			}
 			unvisited = getUnVisited(visited);
 		}
 		System.out.println();
+
 	}
-	
-	/**
-	 * 从访问标记数组中获取第一个发现的未被访问的顶点下标。
-	 * @param visited
-	 * @return 都被访问了就返回-1
-	 */
-	private int getUnVisited(int[] visited) {
-		int index = -1 ;
+
+	public int getUnVisited(int[] visited) {
+		int index = -1;
 		for (int i = 0; i < visited.length; i++) {
-			if(visited[i] == 0) {
+			if (visited[i] == 0) {
 				index = i;
 				break;
 			}
-			
 		}
 		return index;
 	}
